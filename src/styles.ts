@@ -28,3 +28,23 @@ export const Li = styled.li`
         color: blue;
     }
 `;
+
+export const AreaDeResposta = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+`;
+export const TextRespostaCerta = styled.span`
+    color: green;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    font-weight: 600;
+`;
+export const TextRespostaErrada = styled.span`
+    color: red;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    font-weight: 600;
+`;

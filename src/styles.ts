@@ -48,3 +48,10 @@ export const TextRespostaErrada = styled.span`
     text-transform: uppercase;
     font-weight: 600;
 `;
+
+export const TextFinal = styled.span`
+    color: blue;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    font-weight: 600;
+`;

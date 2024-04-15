@@ -1,45 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import * as C from './styles'
 
 function App() {
-
-  const [resCerta, setResCerta] = useState(false)
-  const [resErrada, setResErrada] = useState(false)
-
-  //GERAR NUMERO ALEATORIO
-  const numerosGerados:any = [];
-  const maxNumeros = 11;
-
-  const gerarNumero = ()=>{
-    if(numerosGerados.length >= maxNumeros){
-      return null
-    }
-
-    let numeroAleatorio;
-    do {
-      numeroAleatorio = Math.floor(Math.random() * maxNumeros);
-    } while (numerosGerados.includes(numeroAleatorio));
-
-    numerosGerados.push(numeroAleatorio)
-    setNuAleatorio(numeroAleatorio)
-    setResCerta(false)
-    setResErrada(false)
-    return numeroAleatorio
-
-    
-  }
-
-  //ARMAZENAR QUANTO QUE A PESSOA ERROU E A CERTOU
-
-  const[qtdErros , setQtdErros] = useState(0)
-  const[qtdAcertos , setQtdAcertos] = useState(0)
-
-
-
-
-
-
-
 
   let PerguntasERespostas = [
     {
@@ -144,20 +106,43 @@ function App() {
     }
   ];
 
+  //ARMAZENAR QUANTO QUE A PESSOA ERROU E A CERTOU
+  const [qtdErros, setQtdErros] = useState(0)
+  const [qtdAcertos, setQtdAcertos] = useState(0)
+  // MENSAGEM FINAL
+  const [final , setFinal] = useState(false)
+  // MENSAGEM SE ERROU OU ACERTOU
+  const [resCerta, setResCerta] = useState(false)
+  const [resErrada, setResErrada] = useState(false)
+  // STATE PARA PEGAR O NUMERO DO QUIZ DA VEIS
+  const [nuAleatorio, setNuAleatorio] = useState(0)
 
-  const [nuAleatorio , setNuAleatorio] = useState(0)
-  const pergunta = PerguntasERespostas[nuAleatorio].pergunta
-  const questoes = PerguntasERespostas[nuAleatorio].questoes
+  // LETS PARA ARMAZENAR PERGUNTAS QUESTÃO E RESPOSTA
+  let pergun = PerguntasERespostas[nuAleatorio].pergunta
+  let questoes = PerguntasERespostas[nuAleatorio].questoes
   let ques = '';
   let ress = PerguntasERespostas[nuAleatorio].res
 
 
-  const teste = (e: any) => {
-    let res = e.target.innerText
-    ques = res
+  //FUNÇÃO PARA IR PARA PROXIMA PERGUNTA
+  const geradorNumerosUnicos = ()=> {
+    if(nuAleatorio >= 9){
+      setFinal(true)
+      setResCerta(false)
+      setResErrada(false)
+      return
+    }
+    setNuAleatorio(nuAleatorio + 1)
+    setResCerta(false)
+    setResErrada(false)
   }
 
 
+
+  //PEGAR RESPOSTA SELECIONADA
+  const selecionarResposta = (e: any) =>ques = e.target.innerText;
+
+  // VERIFICA SE A RESPOSTA ESTA VAZIA E VERIFICA SE ESTA CERTA OU NÃO
   const finalizar = () => {
     if (ques === '') return
     if (ques === ress) {
@@ -170,36 +155,43 @@ function App() {
   }
 
 
+
   return (
     <C.Container>
-      <h1>Tema do Quiz <span style={{ textTransform: 'uppercase' }}>"Programação"</span></h1>
+      <h1 style={{ margin: '10px auto' }}>Tema do Quiz <span style={{ textTransform: 'uppercase' }}>"Programação"</span></h1>
 
       <C.AreaPergunta>
-        <h3>{pergunta}</h3>
+        <h3>{pergun}</h3>
       </C.AreaPergunta>
 
       <C.AreaQues>
         <C.Ol>
-          <C.Li onClick={(e) => teste(e)}>{questoes.quesA}</C.Li>
-          <C.Li onClick={(e) => teste(e)}>{questoes.quesB}</C.Li>
-          <C.Li onClick={(e) => teste(e)}>{questoes.quesC}</C.Li>
-          <C.Li onClick={(e) => teste(e)}>{questoes.quesD}</C.Li>
+          <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesA}</C.Li>
+          <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesB}</C.Li>
+          <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesC}</C.Li>
+          <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesD}</C.Li>
         </C.Ol>
       </C.AreaQues>
 
       <button onClick={finalizar}>Comfirmar</button>
 
+      {final && (
+        <C.AreaDeResposta>
+          <C.TextFinal>Quiz Finalizado!</C.TextFinal>
+        </C.AreaDeResposta>
+      )}
+
       {resCerta && (
         <C.AreaDeResposta>
           <C.TextRespostaCerta>Resposta certa Parabens!!!</C.TextRespostaCerta>
-          <button onClick={gerarNumero}>Proxima Pergunta</button>
+          <button onClick={geradorNumerosUnicos}>Proxima Pergunta</button>
         </C.AreaDeResposta>
       )}
 
       {resErrada && (
         <C.AreaDeResposta>
           <C.TextRespostaErrada>Resposta Errada Mais Sorte da Proxima!!!</C.TextRespostaErrada>
-          <button onClick={gerarNumero}>Proxima Pergunta</button>
+          <button onClick={geradorNumerosUnicos}>Proxima Pergunta</button>
         </C.AreaDeResposta>
       )}
 
@@ -211,6 +203,8 @@ function App() {
       </div>
     </C.Container>
   )
+
+  
 
 }
 

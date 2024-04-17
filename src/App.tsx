@@ -158,22 +158,26 @@ function App() {
 
   return (
     <C.Container>
-      <h1 style={{ margin: '10px auto' }}>Tema do Quiz <span style={{ textTransform: 'uppercase' }}>"Programação"</span></h1>
+      <C.TemaDoQuiz>Tema do Quiz "Programação"</C.TemaDoQuiz>
 
-      <C.AreaPergunta>
-        <h3>{pergun}</h3>
-      </C.AreaPergunta>
+      <C.ContainerMain>
 
-      <C.AreaQues>
-        <C.Ol>
-          <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesA}</C.Li>
-          <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesB}</C.Li>
-          <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesC}</C.Li>
-          <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesD}</C.Li>
-        </C.Ol>
-      </C.AreaQues>
+        <C.AreaPergunta>
+          <h3>{pergun}</h3>
+        </C.AreaPergunta>
 
-      <button onClick={finalizar}>Comfirmar</button>
+        <C.AreaQues>
+          <C.Ol>
+            <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesA}</C.Li>
+            <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesB}</C.Li>
+            <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesC}</C.Li>
+            <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesD}</C.Li>
+          </C.Ol>
+        </C.AreaQues>
+      </C.ContainerMain>
+
+
+      <C.Btns onClick={finalizar}>Comfirmar</C.Btns>
 
       {final && (
         <C.AreaDeResposta>
@@ -184,14 +188,14 @@ function App() {
       {resCerta && (
         <C.AreaDeResposta>
           <C.TextRespostaCerta>Resposta certa Parabens!!!</C.TextRespostaCerta>
-          <button onClick={geradorNumerosUnicos}>Proxima Pergunta</button>
+          <C.Btns onClick={geradorNumerosUnicos}>Proxima Pergunta</C.Btns>
         </C.AreaDeResposta>
       )}
 
       {resErrada && (
         <C.AreaDeResposta>
           <C.TextRespostaErrada>Resposta Errada Mais Sorte da Proxima!!!</C.TextRespostaErrada>
-          <button onClick={geradorNumerosUnicos}>Proxima Pergunta</button>
+          <C.Btns onClick={geradorNumerosUnicos}>Proxima Pergunta</C.Btns>
         </C.AreaDeResposta>
       )}
 

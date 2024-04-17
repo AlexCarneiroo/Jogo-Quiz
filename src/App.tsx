@@ -187,7 +187,7 @@ function App() {
 
       {resCerta && (
         <C.AreaDeResposta>
-          <C.TextRespostaCerta>Resposta certa Parabens!!!</C.TextRespostaCerta>
+          <C.TextRespostaCerta>Resposta certa, parabéns!!!</C.TextRespostaCerta>
           <C.Btns onClick={geradorNumerosUnicos}>Proxima Pergunta</C.Btns>
         </C.AreaDeResposta>
       )}
@@ -201,9 +201,9 @@ function App() {
 
       <br />
       <div>
-        <C.TextRespostaCerta>Voce Acerto: {qtdAcertos}</C.TextRespostaCerta>
+        <C.TextRespostaCerta>Você Acertou: {qtdAcertos}</C.TextRespostaCerta>
         <br />
-        <C.TextRespostaErrada>Voce Errou: {qtdErros}</C.TextRespostaErrada>
+        <C.TextRespostaErrada>Você Errou: {qtdErros}</C.TextRespostaErrada>
       </div>
     </C.Container>
   )

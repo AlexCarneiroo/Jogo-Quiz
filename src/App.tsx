@@ -110,23 +110,26 @@ function App() {
   const [qtdErros, setQtdErros] = useState(0)
   const [qtdAcertos, setQtdAcertos] = useState(0)
   // MENSAGEM FINAL
-  const [final , setFinal] = useState(false)
+  const [final, setFinal] = useState(false)
   // MENSAGEM SE ERROU OU ACERTOU
   const [resCerta, setResCerta] = useState(false)
   const [resErrada, setResErrada] = useState(false)
   // STATE PARA PEGAR O NUMERO DO QUIZ DA VEIS
   const [nuAleatorio, setNuAleatorio] = useState(0)
 
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+
   // LETS PARA ARMAZENAR PERGUNTAS QUESTÃO E RESPOSTA
   let pergun = PerguntasERespostas[nuAleatorio].pergunta
   let questoes = PerguntasERespostas[nuAleatorio].questoes
-  let ques = '';
+  let ques = selectedAnswer;
   let ress = PerguntasERespostas[nuAleatorio].res
 
 
   //FUNÇÃO PARA IR PARA PROXIMA PERGUNTA
-  const geradorNumerosUnicos = ()=> {
-    if(nuAleatorio >= 9){
+  const geradorNumerosUnicos = () => {
+    if (nuAleatorio >= 9) {
       setFinal(true)
       setResCerta(false)
       setResErrada(false)
@@ -140,19 +143,32 @@ function App() {
 
 
   //PEGAR RESPOSTA SELECIONADA
-  const selecionarResposta = (e: any) =>ques = e.target.innerText;
+  const selecionarResposta = (e:any) => {
+    const answer = e.target.innerText;
+    setSelectedAnswer(answer);
+};
+
+
 
   // VERIFICA SE A RESPOSTA ESTA VAZIA E VERIFICA SE ESTA CERTA OU NÃO
   const finalizar = () => {
-    if (ques === '') return
-    if (ques === ress) {
-      setResCerta(true)
-      setQtdAcertos(qtdAcertos + 1)
+    if (selectedAnswer === '') return; // Certifique-se de que `selectedAnswer` está inicializado corretamente como ''
+    if (selectedAnswer === ress) {
+        setResCerta(true);
+        setQtdAcertos(qtdAcertos + 1);
     } else {
-      setResErrada(true)
-      setQtdErros(qtdErros + 1)
+        setResErrada(true);
+        setQtdErros(qtdErros + 1);
     }
-  }
+    setSelectedAnswer('' || null); // Reset após a checagem
+};
+
+
+
+
+
+
+
 
 
 
@@ -168,10 +184,10 @@ function App() {
 
         <C.AreaQues>
           <C.Ol>
-            <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesA}</C.Li>
-            <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesB}</C.Li>
-            <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesC}</C.Li>
-            <C.Li onClick={(e) => selecionarResposta(e)}>{questoes.quesD}</C.Li>
+            <C.Li onClick={(e) => selecionarResposta(e)} style={{ color: selectedAnswer === questoes.quesA ? '#889C9B' : '#F2E3D5' }}>{questoes.quesA}</C.Li>
+            <C.Li onClick={(e) => selecionarResposta(e)} style={{ color: selectedAnswer === questoes.quesB ? '#889C9B' : '#F2E3D5' }}>{questoes.quesB}</C.Li>
+            <C.Li onClick={(e) => selecionarResposta(e)} style={{ color: selectedAnswer === questoes.quesC ? '#889C9B' : '#F2E3D5' }}>{questoes.quesC}</C.Li>
+            <C.Li onClick={(e) => selecionarResposta(e)} style={{ color: selectedAnswer === questoes.quesD ? '#889C9B' : '#F2E3D5' }}>{questoes.quesD}</C.Li>
           </C.Ol>
         </C.AreaQues>
       </C.ContainerMain>
@@ -208,7 +224,7 @@ function App() {
     </C.Container>
   )
 
-  
+
 
 }
 

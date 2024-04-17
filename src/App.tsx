@@ -194,7 +194,7 @@ function App() {
 
       {resErrada && (
         <C.AreaDeResposta>
-          <C.TextRespostaErrada>Resposta Errada Mais Sorte da Proxima!!!</C.TextRespostaErrada>
+          <C.TextRespostaErrada>Mais sorte na próxima!!!</C.TextRespostaErrada>
           <C.Btns onClick={geradorNumerosUnicos}>Proxima Pergunta</C.Btns>
         </C.AreaDeResposta>
       )}

@@ -123,7 +123,7 @@ function App() {
   // LETS PARA ARMAZENAR PERGUNTAS QUESTÃO E RESPOSTA
   let pergun = PerguntasERespostas[nuAleatorio].pergunta
   let questoes = PerguntasERespostas[nuAleatorio].questoes
-  let ques = selectedAnswer;
+  //let ques = selectedAnswer;
   let ress = PerguntasERespostas[nuAleatorio].res
 
 
